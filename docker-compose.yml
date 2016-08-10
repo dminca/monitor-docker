@@ -6,8 +6,8 @@ services:
     ports:
       - "8083:8083"
       - "8086:8086"
-    volumes_from: 
-      - data
+    volumes: 
+      - ./data/influx:/data
     environment:
       - ADMIN_USER="admin"
       - INFLUXDB_INIT_PWD="admin"
@@ -35,13 +35,7 @@ services:
     restart: always
     ports:
       - "3000:3000"
-    volumes_from: 
-      - data
+    volumes: 
+      - ./data/grafana:/var/lib/grafana
     environment:
       - GF_SECURITY_ADMIN_PASSWORD="admin"
-
-  data:
-    image: busybox:1.25.0-musl
-    volumes:
-      - ./data/influx:/data
-      - ./data/grafana:/var/lib/grafana
