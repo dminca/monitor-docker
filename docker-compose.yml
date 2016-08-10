@@ -31,5 +31,5 @@ services:
   data:
     image: busybox:1.25.0-musl
     volumes:
-      - /srv/influxdb:/data
-      - /srv/grafana:/var/lib/grafana
+      - ./data/influx:/data
+      - ./data/grafana:/var/lib/grafana
