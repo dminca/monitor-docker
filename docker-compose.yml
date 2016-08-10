@@ -1,24 +1,21 @@
 version: '2'
 services:
   influxdb:
-    image: tutum/influxdb
+    image: influxdb:1.0.0-beta3-alpine
     restart: always
     ports:
-      - "127.0.0.1:8083:8083"
-      - "127.0.0.1:8086:8086"
+      - "8083:8083"
+      - "8086:8086"
     volumes_from: 
       - data
     environment:
       - ADMIN_USER="admin"
       - INFLUXDB_INIT_PWD="admin"
-      - PRE_CREATE_DB="admin"
-    links:
-      - "telegraf:telegraf"
+      - PRE_CREATE_DB="telegraf;admin"
   telegraf:
     image: telegraf:1.0.0-beta3-alpine
-    expose:
-      - "8092"
-      - "8094"
+    links:
+      - influxdb
   grafana:
     image: grafana/grafana:latest
     restart: always
@@ -31,5 +28,7 @@ services:
   data:
     image: busybox:1.25.0-musl
     volumes:
+      - ./files/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+      - /var/run:/var/run
       - ./data/influx:/data
       - ./data/grafana:/var/lib/grafana
