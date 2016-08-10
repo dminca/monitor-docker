@@ -12,10 +12,24 @@ services:
       - ADMIN_USER="admin"
       - INFLUXDB_INIT_PWD="admin"
       - PRE_CREATE_DB="telegraf;admin"
+
   telegraf:
     image: telegraf:1.0.0-beta3-alpine
-    links:
-      - influxdb
+    restart: always
+    extra_hosts:
+     - "influxdb:172.18.0.3"
+    environment:
+      HOST_PROC: /rootfs/proc
+      HOST_SYS: /rootfs/sys
+      HOST_ETC: /rootfs/etc
+    hostname: telegrafhost
+    volumes:
+     - ./files/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+     - /var/run/docker.sock:/var/run/docker.sock:ro
+     - /sys:/rootfs/sys:ro
+     - /proc:/rootfs/proc:ro
+     - /etc:/rootfs/etc:ro
+
   grafana:
     image: grafana/grafana:latest
     restart: always
@@ -25,10 +39,9 @@ services:
       - data
     environment:
       - GF_SECURITY_ADMIN_PASSWORD="admin"
+
   data:
     image: busybox:1.25.0-musl
     volumes:
-      - ./files/telegraf.conf:/etc/telegraf/telegraf.conf:ro
-      - /var/run:/var/run
       - ./data/influx:/data
       - ./data/grafana:/var/lib/grafana

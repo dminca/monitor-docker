@@ -4,6 +4,7 @@
 
 ##### Project references:
 - [How-to monitor Docker ?][1]
+- [Running Telegraf inside a docker container][5]
 
 ###### Docker references:
 - [Official Telegraf docker image][2]
@@ -14,3 +15,4 @@
 [2]: https://hub.docker.com/_/telegraf/
 [3]: https://docs.docker.com/compose/compose-file/
 [4]: https://hub.docker.com/_/influxdb/
+[5]: https://www.jacobtomlinson.co.uk/monitoring/2016/06/23/running-telegraf-inside-a-container/
