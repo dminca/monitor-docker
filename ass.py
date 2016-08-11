@@ -3,11 +3,14 @@
 import subprocess
 import sys
 
-data_dir = '/data/*'
-
-def main(argv):
-    subprocess.call('ls','-lsa', data_dir)
-
-
-if __name__ == '__main__':
-    main(sys.argv[1:])
+# remove the contents of data/*
+data_dir = "data/*"
+cmdping = "sudo rm -rfv " + data_dir
+p = subprocess.Popen(cmdping, shell=True, stderr=subprocess.PIPE)
+while True:
+    out = p.stderr.read(1)
+    if out == '' and p.poll() != None:
+        break
+    if out != '':
+        sys.stdout.write(out)
+        sys.stdout.flush()
