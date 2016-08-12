@@ -10,9 +10,13 @@
 - [Official Telegraf docker image][2]
 - [Docker Compose file reference][3]
 - [Official Influxdb docker image][4]
+- [Elasticsearch Alpine Dockerfile][6]
+- [Docker Alpine images repo][7]
 
 [1]: https://opsnotice.xyz/how-to-monitor-docker-hosts/
 [2]: https://hub.docker.com/_/telegraf/
 [3]: https://docs.docker.com/compose/compose-file/
 [4]: https://hub.docker.com/_/influxdb/
 [5]: https://www.jacobtomlinson.co.uk/monitoring/2016/06/23/running-telegraf-inside-a-container/
+[6]: https://github.com/gitphill/elastic/blob/master/latest/Dockerfile
+[7]: https://github.com/kost/docker-alpine
