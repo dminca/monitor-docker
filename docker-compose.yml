@@ -42,43 +42,23 @@ services:
       # - GF_AUTH_ANONYMOUS_ENABLED=true
       # - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
 
-  elasticsearch:
-    image: k0st/alpine-elasticsearch
-    volumes: 
-    - ./data/elasticsearch:/var/lib/elasticsearch
-
-  kibana:
-    build:
-      context: ./docker
-      dockerfile: Dockerfile-kibana
+  elk:
+    image: qnib/elk
     ports:
-     - "10080:5601"
-    links:
-     - elasticsearch
-
-  logstash:
-    build:
-      context: ./docker/alpine-logstash
-    links:
-     - elasticsearch
-
-  # elk:
-  #   image: qnib/elk
-  #   ports:
-  #    - "9200:9200"
-  #    - "5514:5514"
-  #    - "55514:55514/udp"
-  #    - "5601:5601"
-  #    - "8080:80"
-  #    - "8500:8500"
-  #   environment:
-  #   - DC_NAME=dc1
-  #   - RUN_SERVER=true
-  #   - BOOTSTRAP_CONSUL=true
-  #   - COLLECT_METRICS=false
-  #   - FORWARD_TO_LOGSTASH=false
-  #   dns: 127.0.0.1
-  #   hostname: elk
-  #   volumes:
-  #    - ./data/elasticsearch:/var/lib/elasticsearch
-  #   privileged: true
+     - "9200:9200"
+     - "5514:5514"
+     - "55514:55514/udp"
+     - "5601:5601"
+     - "8080:80"
+     - "8500:8500"
+    environment:
+    - DC_NAME=dc1
+    - RUN_SERVER=true
+    - BOOTSTRAP_CONSUL=true
+    - COLLECT_METRICS=false
+    - FORWARD_TO_LOGSTASH=false
+    dns: 127.0.0.1
+    hostname: elk
+    volumes:
+     - ./data/elasticsearch:/var/lib/elasticsearch
+    privileged: true
