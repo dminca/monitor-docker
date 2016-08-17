@@ -2,6 +2,7 @@ version: '2'
 services:
   influxdb:
     image: influxdb:1.0.0-beta3-alpine
+    hostname: influx
     restart: always
     ports:
       - "8083:8083"
@@ -26,6 +27,7 @@ services:
     volumes:
      - ./files/telegraf.conf:/etc/telegraf/telegraf.conf:ro
      - /var/run/docker.sock:/var/run/docker.sock:ro
+     - /var/run/utmp:/var/run/utmp:ro
      - /sys:/rootfs/sys:ro
      - /proc:/rootfs/proc:ro
      - /etc:/rootfs/etc:ro
