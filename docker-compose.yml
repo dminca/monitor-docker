@@ -57,10 +57,11 @@ services:
     - DC_NAME=dc1
     - RUN_SERVER=true
     - BOOTSTRAP_CONSUL=true
-    - COLLECT_METRICS=false
-    - FORWARD_TO_LOGSTASH=false
+    - COLLECT_METRICS=true
+    - FORWARD_TO_LOGSTASH=true
     dns: 127.0.0.1
     hostname: elk
     volumes:
      - ./data/elasticsearch:/var/lib/elasticsearch
+     - ./files/logstash.conf:/etc/logstash/conf.d/logstash.conf
     privileged: true
