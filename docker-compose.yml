@@ -64,4 +64,6 @@ services:
     volumes:
      - ./data/elasticsearch:/var/lib/elasticsearch
      - ./files/logstash.conf:/etc/logstash/conf.d/logstash.conf
+     #- ./files/twitter_template.json:/etc/logstash/conf.d/twitter_template.json
+     #- ./files/twitter.conf:/etc/logstash/conf.d/twitter.conf
     privileged: true
